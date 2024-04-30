@@ -17,6 +17,9 @@ Se trata de una aplicación simple de realidad aumentada, haciendo uso de micros
 
 - **Visualizer:** Recibe el video modificado (del Filter Selector) y el identificador con las coordenadas de ArUco (del ArUco Tracker) para realizar la representación de una imagen 2D en tiempo real. Si no recibe datos de los dos, muestra una imagen que indica que no hay señal.
 
+![Captura](https://github.com/Enriquelp/App_RA/assets/48442517/f1a6dd5b-fef5-4878-a0fc-769ea606686f)
+
+
 # Dependencias
 
 - [OpenCV](https://opencv.org/)
