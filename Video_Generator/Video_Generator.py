@@ -6,7 +6,7 @@ import sys
 import time
 
 # Video a enviar
-ruta_video = 'Video_Generator/media/PruebaVideo.avi'
+video_path = 'Video_Generator/media/PruebaVideo.avi'
 
 # IP y puerto al que mandar el stream de video
 feature_communicator_ip = "127.0.0.1"
@@ -17,8 +17,6 @@ Filter_Selector_port = 6664
 # Metodo para controlar la salida del script por ctrl+c
 def handle_sigint(signal, frame):
     print("Abortando ejecucion del microservicio.")
-    # Realizar acciones adicionales si es necesario
-    # Por ejemplo, cerrar conexiones, guardar datos, etc.
     sys.exit(0)  # Salir del script con código de salida 0
 
 def send_video():
@@ -67,7 +65,7 @@ s_Filter_Selector.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1000000) # soc
 
 while True:
     # Crea un objeto VideoCapture para leer el archivo de video
-    cap = cv2.VideoCapture(ruta_video)
+    cap = cv2.VideoCapture(video_path)
     print("Enviando video...")
     send_video()
     time.sleep(2)

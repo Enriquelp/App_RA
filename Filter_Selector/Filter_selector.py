@@ -45,16 +45,7 @@ def process_video(s_Video_Capturer, s_Visualizer):
             data = pickle.loads(data)
             frame = cv2.imdecode(data, cv2.IMREAD_COLOR)
 
-            # Filter 2d
-            #blur_filter = np.array([
-            #    [1, 1, 1],
-            #    [1, 1, 1],
-            #    [1, 1, 1]
-            #])
-            #blur_filter = blur_filter / 25
-            #frame = cv2.filter2D(frame, ddepth = -1, kernel = blur_filter)
-
-            # Blur
+            # filtro de Blur
             frame = cv2.blur(frame, ksize=(50, 50))
 
             # Muestra la imagen con el filtro
@@ -80,17 +71,16 @@ def process_video(s_Video_Capturer, s_Visualizer):
     cv2.destroyAllWindows()
 
 def start_service():
+    # Establecemos la conexion socket UDP para el Visualizer
+    s_Visualizer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
+    s_Visualizer.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1000000) # socket.SO_SNDBUF, 1000000 -> establece el tamaño de buffer de envio a 1MB
+        # Creamos el socket para recibir el video del Video Capturer
+    s_Video_Capturer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
+    s_Video_Capturer.bind((ip, port))
+    
     while True:
-        # Establecemos la conexion socket UDP para el Visualizer
-        s_Visualizer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
-        s_Visualizer.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1000000) # socket.SO_SNDBUF, 1000000 -> establece el tamaño de buffer de envio a 1MB
-         # Creamos el socket para recibir el video del Video Capturer
-        s_Video_Capturer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
-        s_Video_Capturer.bind((ip, port))
         print("Esperando recepcion de video...")
         process_video(s_Video_Capturer, s_Visualizer)
-        s_Visualizer.close()
-        s_Video_Capturer.close()
 
 signal.signal(signal.SIGINT, handle_sigint)
 start_service()

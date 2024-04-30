@@ -77,17 +77,16 @@ def process_video(s_feature_communicator, s_Visualizer):
 
 
 def start_service():
+     # Establecemos la conexion socket UDP para el ArUco_Tracker
+    s_Visualizer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
+    s_Visualizer.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1000000) # socket.SO_SNDBUF, 1000000 -> establece el tamaño de buffer de envio a 1MB
+    # Creamos el socket para recibir el video del Feature Communicator
+    s_feature_communicator = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s_feature_communicator.bind((ip, port))
+
     while True:
-        # Establecemos la conexion socket UDP para el ArUco_Tracker
-        s_Visualizer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
-        s_Visualizer.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1000000) # socket.SO_SNDBUF, 1000000 -> establece el tamaño de buffer de envio a 1MB
-        # Creamos el socket para recibir el video del Feature Communicator
-        s_feature_communicator = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s_feature_communicator.bind((ip, port))
         print("Esperando recepcion de video...")
         process_video(s_feature_communicator, s_Visualizer)
-        s_Visualizer.close()
-        s_feature_communicator.close()
 
 signal.signal(signal.SIGINT, handle_sigint)
 

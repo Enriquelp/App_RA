@@ -10,10 +10,16 @@ feature_communicator_port = 6666
 Filter_Selector_ip = "127.0.0.1"
 Filter_Selector_port = 6664
 
+# Parametros del video
+image_width = 640
+image_height = 480
+image_FPS = 30
+
 # Configurar la captura de video desde la cámara web
 cap = cv2.VideoCapture(0)
-cap.set(3, 640) # Ancho del video
-cap.set(4, 480) # Alto del video
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, image_width) # Ancho del video
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, image_height) # Alto del video
+cap.set(cv2.CAP_PROP_FPS, image_FPS) # FPS del video
 
 # Metodo para controlar la salida del script por ctrl+c
 def handle_sigint(signal, frame):

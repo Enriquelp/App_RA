@@ -71,17 +71,17 @@ def process_video(s_Video_Capturer, s_ArUco_Tracker):
     cv2.destroyAllWindows()
 
 def start_service():
+    # Establecemos la conexion socket UDP para el ArUco_Tracker
+    s_ArUco_Tracker = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
+    s_ArUco_Tracker.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1000000) # socket.SO_SNDBUF, 1000000 -> establece el tamaño de buffer de envio a 1MB
+    # Creamos el socket para recibir el video del Video Capturer
+    s_Video_Capturer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
+    s_Video_Capturer.bind((ip, port))
+    
     while True:
-        # Establecemos la conexion socket UDP para el ArUco_Tracker
-        s_ArUco_Tracker = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
-        s_ArUco_Tracker.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 1000000) # socket.SO_SNDBUF, 1000000 -> establece el tamaño de buffer de envio a 1MB
-        # Creamos el socket para recibir el video del Video Capturer
-        s_Video_Capturer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # socket.AF_INET -> Usamos IPv4, socket.SOCK_DGRAM -> usamos el protocolo UDP
-        s_Video_Capturer.bind((ip, port))
         print("Esperando recepcion de video...")
         process_video(s_Video_Capturer, s_ArUco_Tracker)
-        s_ArUco_Tracker.close()
-        s_Video_Capturer.close()
+
 
 signal.signal(signal.SIGINT, handle_sigint)
 start_service()
