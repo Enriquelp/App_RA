@@ -33,6 +33,24 @@ Si algún microservicio falla durante el proceso, todos los demás quedan pendie
 
 Existe una segunda versión de cada microservicio que usa http para la comunicación. En este caso, cada microservicio solo necesita conocer la IP y puerto al que enviará los datos (endpoint).
 
+# Ejecución
+
+Primero hay que instalar los requisitos en el entorno virtual. Para ello, ejecutamos:
+
+```bash
+python -v venv env # Crea el entorno virtual
+.\env\Scripts\activate # Activa el entorno virtual
+pip install -r requirements.txt # Instala todas las dependencias del proyecto
+```
+
+Para ejecutar todos los microservicios de forma rápida y automática, se puede hacer doble clic sobre los archivos start.bat (para la versión de sockets) y startHTTP.bat (para la versión de http).
+
+De forma alternativa, se puede lanzar un solo proceso ejecutando en la ubicación del script en un terminal la siguiente sentencia:
+
+```python
+python nombre_del_script.py
+```
+
 # Dependencias
 
 - [OpenCV](https://opencv.org/)
