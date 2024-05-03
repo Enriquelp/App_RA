@@ -1,18 +1,19 @@
 import cv2
 import requests
+import os
 
 # IPs y puertos a los que mandar el stream de video
-Feature_Communicator_ip = "127.0.0.1"
-Feature_Communicator_port = 5001
-Filter_Selector_ip = "127.0.0.1"
-Filter_Selector_port = 5000
+Feature_Communicator_ip = os.environ.get("Feature_Communicator_ip", "127.0.0.1")
+Feature_Communicator_port = os.environ.get("Feature_Communicator_port", "5001")
+Filter_Selector_ip = os.environ.get("Filter_Selector_ip", "127.0.0.1")
+Filter_Selector_port = os.environ.get("Feature_Communicator_port", "5000")
 urlFeatureCommunicator = f'http://{Feature_Communicator_ip}:{Feature_Communicator_port}/FeatureCommunicator'
 urlFilterSelector = f'http://{Filter_Selector_ip}:{Filter_Selector_port}/FilterSelector'
 
 # Parametros del video
-image_width = 640
-image_height = 480
-image_FPS = 30
+image_width = os.environ.get("image_width", "640")
+image_height = os.environ.get("image_height", "480")
+image_FPS = os.environ.get("image_FPS", "30")
 
 def send_video():
     while cap.isOpened():
@@ -47,7 +48,7 @@ print("Capturando video...")
 while True:
     # Configurar la captura de video desde la cámara web
     cap = cv2.VideoCapture(0)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, image_width) # Ancho del video
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, image_height) # Alto del video
-    cap.set(cv2.CAP_PROP_FPS, image_FPS) # FPS del video
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, int(image_width)) # Ancho del video
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, int(image_height)) # Alto del video
+    cap.set(cv2.CAP_PROP_FPS, int(image_FPS)) # FPS del video
     send_video()

@@ -3,11 +3,12 @@ import pickle
 import numpy as np
 from flask import Flask, render_template, Response, request
 import random
+import os
 
 
 app = Flask(__name__)
 
-own_port = 5003
+own_port = os.environ.get("own_port", "5003")
 
 # Variables Globales
 LastCorners = ()
@@ -137,6 +138,6 @@ def receiveVideo():
     return "OK", 200
 
 if __name__ == '__main__':
-    app.run(debug=True, port=own_port)
+    app.run(port=own_port)
     
     

@@ -2,14 +2,14 @@ import cv2
 import pickle
 import numpy as np
 import requests
+import os
 from flask import Flask, request
 
 app = Flask(__name__)
 
-own_port = 5002
-
-Visualizer_ip = "127.0.0.1"
-Visualizer_port = 5003
+own_port = os.environ.get("own_port", "5002")
+Visualizer_ip = os.environ.get("Visualizer_ip", "127.0.0.1")
+Visualizer_port = os.environ.get("Visualizer_port", "5003")
 urlVisualizer = f'http://{Visualizer_ip}:{Visualizer_port}/visualizer/receiveCorners'
 
 # Cargar el clasificador de códigos ArUco
@@ -52,4 +52,4 @@ def process_video():
     return "OK", 200
 
 if __name__ == '__main__':
-    app.run(debug=True, port=own_port)
+    app.run(port=own_port)

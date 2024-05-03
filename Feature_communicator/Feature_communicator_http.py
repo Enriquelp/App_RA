@@ -1,16 +1,15 @@
 import cv2
 import requests
 import numpy as np
+import os
 from flask import Flask, request
 
 app = Flask(__name__)
 
-own_port = 5001
-
-ArUco_Tracker_ip = "127.0.0.1"
-ArUco_Tracker_port = 5002
+own_port = os.environ.get("own_port", "5001")
+ArUco_Tracker_ip = os.environ.get("ArUco_Tracker_ip", "127.0.0.1")
+ArUco_Tracker_port = os.environ.get("ArUco_Tracker_port", "5002")
 urlArUcoTracker = f'http://{ArUco_Tracker_ip}:{ArUco_Tracker_port}/ArucoTracker'
-
 
 # Metodo para enviar el stream de video al ArUco_Tracker
 def send_frame(gray_frame):
@@ -37,4 +36,4 @@ def process_video():
     return "OK", 200
 
 if __name__ == '__main__':
-    app.run(debug=True, port=own_port)
+    app.run(port=own_port)
