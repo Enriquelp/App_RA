@@ -1,0 +1,27 @@
+# Usa la imagen base de Python
+FROM python:latest
+
+# Copia el script al contenedor
+COPY Video_Generator/Video_Generator_http.py /app/Video_Generator/Video_Generator_http.py
+COPY Video_Generator/media /app/Video_Generator/media
+COPY ../requirements.txt /app/requirements.txt
+
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Instala las dependencias necesarias, como OpenCV
+RUN apt-get update
+RUN apt install -y libgl1-mesa-glx
+RUN pip install -r requirements.txt
+
+# Establece las variables de entorno
+ENV Feature_Communicator_ip="0.0.0.0" \
+    Feature_Communicator_port="5001" \
+    Filter_Selector_ip="0.0.0.0" \
+    Filter_Selector_port="5000"
+
+# Abrimos el puerto 5000 del contenedor para permitir las comunicaciones
+EXPOSE 5000 5001
+
+# Comando para ejecutar el script
+CMD ["python", "Video_Generator/Video_Generator_http.py"]
