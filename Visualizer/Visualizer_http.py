@@ -8,6 +8,7 @@ import os
 
 app = Flask(__name__)
 
+own_host = os.environ.get("own_host", "127.0.0.1")
 own_port = os.environ.get("own_port", "5003")
 
 # Variables Globales
@@ -138,6 +139,6 @@ def receiveVideo():
     return "OK", 200
 
 if __name__ == '__main__':
-    app.run(port=own_port)
+    app.run(host=own_host,port=own_port)
     
     

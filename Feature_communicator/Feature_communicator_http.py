@@ -6,6 +6,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+own_host = os.environ.get("own_host", "127.0.0.1")
 own_port = os.environ.get("own_port", "5001")
 ArUco_Tracker_ip = os.environ.get("ArUco_Tracker_ip", "127.0.0.1")
 ArUco_Tracker_port = os.environ.get("ArUco_Tracker_port", "5002")
@@ -36,4 +37,4 @@ def process_video():
     return "OK", 200
 
 if __name__ == '__main__':
-    app.run(port=own_port)
+    app.run(host=own_host, port=own_port)

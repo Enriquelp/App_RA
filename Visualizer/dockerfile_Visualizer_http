@@ -1,0 +1,25 @@
+# Usa la imagen base de Python
+FROM python:latest
+
+# Copia el script al contenedor
+COPY Visualizer/Visualizer_http.py /app/Visualizer/Visualizer_http.py
+COPY Visualizer/media /app/Visualizer/media
+COPY Visualizer/templates /app/Visualizer/templates
+COPY ../requirements.txt /app/requirements.txt
+
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Instala las dependencias necesarias, como OpenCV
+RUN apt-get update
+RUN apt install -y libgl1-mesa-glx
+RUN pip install -r requirements.txt
+
+# Establece las variables de entorno
+ENV own_port="5003"
+
+# Abrimos el puerto 5000 del contenedor para permitir las comunicaciones
+EXPOSE 5003
+
+# Comando para ejecutar el script
+CMD ["python", "Visualizer/Visualizer_http.py"]
