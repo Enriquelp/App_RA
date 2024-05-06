@@ -2,9 +2,7 @@
 FROM python:latest
 
 # Copia el script al contenedor
-COPY Visualizer/Visualizer_http.py /app/Visualizer/Visualizer_http.py
-COPY Visualizer/media /app/Visualizer/media
-COPY Visualizer/templates /app/Visualizer/templates
+COPY ArUco_Tracker/ArUco_tracker_http.py /app/ArUco_Tracker/ArUco_tracker_http.py
 COPY ../requirements.txt /app/requirements.txt
 
 # Establece el directorio de trabajo
@@ -16,11 +14,13 @@ RUN apt install -y libgl1-mesa-glx
 RUN pip install -r requirements.txt
 
 # Establece las variables de entorno
-ENV own_port="5003" \
-    own_host="0.0.0.0"
+ENV own_host="0.0.0.0" \
+    own_port="5002" \
+    Visualizer_ip="0.0.0.0" \
+    Visualizer_port="5003"
 
-# Abrimos el puerto 5003 del contenedor para permitir las comunicaciones
-EXPOSE 5003
+# Abrimos el puerto 5002 del contenedor para permitir las comunicaciones
+EXPOSE 5002 
 
 # Comando para ejecutar el script
-CMD ["python", "Visualizer/Visualizer_http.py"]
+CMD ["python", "ArUco_Tracker/ArUco_tracker_http.py"]

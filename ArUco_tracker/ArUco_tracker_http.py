@@ -7,7 +7,7 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-own_host = os.environ.get("own_host", "0.0.0.0")
+own_host = os.environ.get("own_host", "127.0.0.1")
 own_port = os.environ.get("own_port", "5002")
 Visualizer_ip = os.environ.get("Visualizer_ip", "127.0.0.1")
 Visualizer_port = os.environ.get("Visualizer_port", "5003")

@@ -10,7 +10,7 @@ video_path = 'Video_Generator/media/PruebaVideo.avi'
 Feature_Communicator_ip = os.environ.get("Feature_Communicator_ip", "127.0.0.1")
 Feature_Communicator_port = os.environ.get("Feature_Communicator_port", "5001")
 Filter_Selector_ip = os.environ.get("Filter_Selector_ip", "127.0.0.1")
-Filter_Selector_port = os.environ.get("Feature_Communicator_port", "5000")
+Filter_Selector_port = os.environ.get("Filter_Selector_port", "5000")
 urlFeatureCommunicator = f'http://{Feature_Communicator_ip}:{Feature_Communicator_port}/FeatureCommunicator'
 urlFilterSelector = f'http://{Filter_Selector_ip}:{Filter_Selector_port}/FilterSelector'
 
@@ -28,7 +28,7 @@ def send_video():
             break
 
         # Abre una ventana mostrando el frame capturado de la camara
-        cv2.imshow("videoGen", frame)
+        #cv2.imshow("videoGen", frame)
 
         # Codifica el frame en formato jpg y lo llamamos buffer
         success, buffer = cv2.imencode(".jpg", frame, [int(cv2.IMWRITE_JPEG_QUALITY), 30])
