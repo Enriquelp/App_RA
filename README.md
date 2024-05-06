@@ -53,6 +53,12 @@ python nombre_del_script.py
 
 # Creación de los contenedores
 
+Primero creamos una red para que los contenedores puedan comunicarse entre ellos de forma local
+
+```docker
+Docker network create my-network
+```
+
 Para crear y lanzar los contenedores de cada microservicio, hay que tener instalado Docker [para Windows](https://docs.docker.com/desktop/install/windows-install/) o [para Linux](https://docs.docker.com/desktop/install/linux-install/) y ejecutar los siguientes comandos:
 
 - Video Generator
