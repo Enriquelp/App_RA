@@ -6,7 +6,7 @@ import os
 Feature_Communicator_ip = os.environ.get("Feature_Communicator_ip", "127.0.0.1")
 Feature_Communicator_port = os.environ.get("Feature_Communicator_port", "5001")
 Filter_Selector_ip = os.environ.get("Filter_Selector_ip", "127.0.0.1")
-Filter_Selector_port = os.environ.get("Feature_Communicator_port", "5000")
+Filter_Selector_port = os.environ.get("Filter_Selector_port", "5000")
 urlFeatureCommunicator = f'http://{Feature_Communicator_ip}:{Feature_Communicator_port}/FeatureCommunicator'
 urlFilterSelector = f'http://{Filter_Selector_ip}:{Filter_Selector_port}/FilterSelector'
 

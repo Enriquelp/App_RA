@@ -12,15 +12,13 @@ WORKDIR /app
 RUN apt-get update
 RUN apt install -y libgl1-mesa-glx
 RUN pip install -r requirements.txt
+RUN pip install opencv-python
 
 # Establece las variables de entorno
-ENV Feature_Communicator_ip="127.0.0.1" \
+ENV Feature_Communicator_ip="0.0.0.0" \
     Feature_Communicator_port="5001" \
-    Filter_Selector_ip="127.0.0.1" \
+    Filter_Selector_ip="0.0.0.0" \
     Filter_Selector_port="5000"
-
-# Abrimos el puerto 5000 del contenedor para permitir las comunicaciones
-EXPOSE 5000 5001
 
 # Comando para ejecutar el script
 CMD ["python", "Video_capturer_http.py"]
