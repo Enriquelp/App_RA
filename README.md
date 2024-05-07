@@ -68,6 +68,13 @@ Para crear y lanzar los contenedores de cada microservicio, hay que tener instal
     
     Docker run --network my-network -e "Feature_Communicator_ip=FeatureCommunicator" -e "Filter_Selector_ip=FilterSelector" --name VideoGenerator video_generator_http
     ```
+- Video Capturer
+    
+    ```docker
+    Docker build -t video_capturer_http -f Video_Capturer\dockerfile_VideoCapturer_http .
+    
+    Docker run -v /dev/video0:/dev/video0 --network my-network -e "Feature_Communicator_ip=FeatureCommunicator" -e "Filter_Selector_ip=FilterSelector" --name VideoCapturer video_capturer_http
+    ```
     
 - Filter Selector
     
