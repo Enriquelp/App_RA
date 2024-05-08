@@ -43,7 +43,7 @@ python -v venv env # Crea el entorno virtual
 pip install -r requirements.txt # Instala todas las dependencias del proyecto
 ```
 
-Para ejecutar todos los microservicios de forma rápida y automática, se puede hacer doble clic sobre los archivos start.bat (para la versión de sockets) y startHTTP.bat (para la versión de http).
+Para ejecutar todos los microservicios de forma rápida y automática, se puede hacer doble clic sobre los archivos start.bat (para la versión de sockets) y startHTTP.bat (para la versión de http) si estamos en windows, y para linux uabrimos la carpeta del proyecto en una terminal "./start.sh" , o para la version hhtp "./startHTTP.sh"
 
 De forma alternativa, se puede lanzar un solo proceso ejecutando en la ubicación del script en un terminal la siguiente sentencia:
 
