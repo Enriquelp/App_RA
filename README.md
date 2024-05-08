@@ -56,7 +56,7 @@ python nombre_del_script.py
 Primero creamos una red para que los contenedores puedan comunicarse entre ellos de forma local
 
 ```docker
-Docker network create my-network
+docker network create my-network
 ```
 
 Para crear y lanzar los contenedores de cada microservicio, hay que tener instalado Docker [para Windows](https://docs.docker.com/desktop/install/windows-install/) o [para Linux](https://docs.docker.com/desktop/install/linux-install/) y ejecutar los siguientes comandos:
@@ -64,49 +64,49 @@ Para crear y lanzar los contenedores de cada microservicio, hay que tener instal
 - Video Generator
     
     ```docker
-    Docker build -t video_generator_http -f Video_Generator\dockerfile_VideoGenerator_http .
+    docker build -t video_generator_http -f Video_Generator\dockerfile_VideoGenerator_http .
     
-    Docker run --network my-network -e "Feature_Communicator_ip=FeatureCommunicator" -e "Filter_Selector_ip=FilterSelector" --name VideoGenerator video_generator_http
+    docker run --network my-network -e "Feature_Communicator_ip=FeatureCommunicator" -e "Filter_Selector_ip=FilterSelector" --name VideoGenerator video_generator_http
     ```
 - Video Capturer
     
     ```docker
-    Docker build -t video_capturer_http -f Video_Capturer\dockerfile_VideoCapturer_http .
+    docker build -t video_capturer_http -f Video_Capturer\dockerfile_VideoCapturer_http .
     
-    Docker run -v /dev/video0:/dev/video0 --network my-network -e "Feature_Communicator_ip=FeatureCommunicator" -e "Filter_Selector_ip=FilterSelector" --name VideoCapturer video_capturer_http
+    docker run -v /dev/video0:/dev/video0 --network my-network -e "Feature_Communicator_ip=FeatureCommunicator" -e "Filter_Selector_ip=FilterSelector" --name VideoCapturer video_capturer_http
     ```
     
 - Filter Selector
     
     ```docker
-    Docker build -t filter_selector_http -f Filter_Selector\dockerfile_FilterSelector_http .
+    docker build -t filter_selector_http -f Filter_Selector\dockerfile_FilterSelector_http .
     
-    Docker run --name FilterSelector -e "Visualizer_ip=Visualizer" --network my-network -p 5000:5000 filter_selector_http
+    docker run --name FilterSelector -e "Visualizer_ip=Visualizer" --network my-network -p 5000:5000 filter_selector_http
     ```
     
 - Feature Communicator
     
     ```docker
-    Docker build -t feature_communicator_http -f Feature_Communicator\dockerfile_FeatureCommunicator_http .
+    docker build -t feature_communicator_http -f Feature_Communicator\dockerfile_FeatureCommunicator_http .
     
-    Docker run --name FeatureCommunicator -e "ArUco_Tracker_ip=ArUcoTracker" --network my-network -p 5001:5001 feature_communicator_http
+    docker run --name FeatureCommunicator -e "ArUco_Tracker_ip=ArUcoTracker" --network my-network -p 5001:5001 feature_communicator_http
     ```
     
 - ArUco Tracker
     
     ```docker
-    Docker build -t aruco_tracker_http -f ArUco_Tracker\dockerfile_ArUcoTracker_http .
+    docker build -t aruco_tracker_http -f ArUco_Tracker\dockerfile_ArUcoTracker_http .
     
-    Docker run --name ArUcoTracker -e "Visualizer_ip=Visualizer" --network my-network -p 5002:5002 aruco_tracker_http 
+    docker run --name ArUcoTracker -e "Visualizer_ip=Visualizer" --network my-network -p 5002:5002 aruco_tracker_http 
     
     ```
     
 - Visualizer
     
     ```docker
-    Docker build -t visualizer_http -f Visualizer\dockerfile_Visualizer_http . 
+    docker build -t visualizer_http -f Visualizer\dockerfile_Visualizer_http . 
     
-    Docker run --name Visualizer --network my-network -p 5003:5003 visualizer_http
+    docker run --name Visualizer --network my-network -p 5003:5003 visualizer_http
     ```
 # Dependencias
 
