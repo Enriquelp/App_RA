@@ -1,0 +1,40 @@
+# video-generator-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video-generator
+  template:
+    metadata:
+      labels:
+        app: video-generator
+    spec:
+      containers:
+      - name: video-generator
+        image: enriquelpzenc/video_generator_http:latest
+        env:
+          - name: Feature_Communicator_ip
+            value: 0.0.0.0
+          - name: Feature_Communicator_port
+            value: 5001
+          - name: Filter_Selector_ip
+            value: 0.0.0.0
+          - name: Filter_Selector_port
+            value: 5000
+---
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: video-generator
+spec:
+  selector:
+    app: video-generator
+  ports:
+    - protocol: TCP
+      targetPort: 5000
+---

@@ -1,0 +1,43 @@
+# aruco-tracker-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aruco-tracker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aruco-tracker
+  template:
+    metadata:
+      labels:
+        app: aruco-tracker
+    spec:
+      containers:
+      - name: aruco-tracker
+        image: enriquelpzenc/aruco_tracker_http:latest
+        ports:
+        - containerPort: 5002
+        env:
+          - name: own_host
+            value: 0.0.0.0
+          - name: own_port
+            value: 5002
+          - name: Visualizer_ip
+            value: 0.0.0.0
+          - name: Visualizer_port
+            value: 5003
+---
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: aruco-tracker
+spec:
+  selector:
+    app: aruco-tracker
+  ports:
+    - protocol: TCP
+      port: 5002
+      targetPort: 5002
+---

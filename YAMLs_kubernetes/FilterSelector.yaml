@@ -1,0 +1,43 @@
+# filter-selector-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filter-selector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filter-selector
+  template:
+    metadata:
+      labels:
+        app: filter-selector
+    spec:
+      containers:
+      - name: filter-selector
+        image: enriquelpzenc/filter_selector_http:latest
+        ports:
+        - containerPort: 5000
+        env:
+          - name: own_host
+            value: 0.0.0.0
+          - name: own_port
+            value: 5000
+          - name: Visualizer_ip
+            value: 0.0.0.0
+          - name: Visualizer_port
+            value: 5003
+---
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: filter-selector
+spec:
+  selector:
+    app: filter-selector
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+---

@@ -1,0 +1,43 @@
+# feature-communicator-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feature-communicator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feature-communicator
+  template:
+    metadata:
+      labels:
+        app: feature-communicator
+    spec:
+      containers:
+      - name: feature-communicator
+        image: enriquelpzenc/feature_communicator_http:latest
+        ports:
+        - containerPort: 5001
+        env:
+          - name: own_host
+            value: 0.0.0.0
+          - name: own_port
+            value: 5001
+          - name: ArUco_Tracker_ip
+            value: 0.0.0.0
+          - name: ArUco_Tracker_port
+            value: 5002
+---
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: feature-communicator
+spec:
+  selector:
+    app: feature-communicator
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001
+---
