@@ -3,41 +3,44 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: feature-communicator
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
+spec: # Configuracion del deployment
+  replicas: 1 # Indica el número deseado de réplicas del conjunto de pods que el Deployment debe mantener en funcionamiento en todo momento.
+  selector: # Especifica cómo el Deployment encuentra qué pods administrar. 
+    matchLabels: # Define las etiquetas que deben coincidir con las etiquetas de los pods para que sean seleccionados por este Deployment. 
       app: feature-communicator
-  template:
+  template: # Define la plantilla para crear nuevos pods administrados por el Deployment.
     metadata:
-      labels:
+      labels: # Especifica las etiquetas que se asignarán a los pods creados por este Deployment.
         app: feature-communicator
     spec:
       containers:
-      - name: feature-communicator
-        image: enriquelpzenc/feature_communicator_http:latest
-        ports:
-        - containerPort: 5001
-        env:
+      - name: feature-communicator # Nombre del contenedor
+        image: enriquelpzenc/feature_communicator_http:latest # Imagen usada para el contenedor.
+        ports: # Define los puertos que el contenedor debe exponer.
+        - containerPort: 5001 # Especifica el puerto en el que el contenedor escuchará las conexiones entrantes.
+        env: # Variables del servicio.
           - name: own_host
-            value: 0.0.0.0
+            value: "0.0.0.0"
           - name: own_port
-            value: 5001
+            value: "5001"
           - name: ArUco_Tracker_ip
-            value: 0.0.0.0
+            value: "192.168.49.2"
           - name: ArUco_Tracker_port
-            value: 5002
+            value: "30002"
 ---
 # service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: feature-communicator
+  name: feature-communicator-service # Nombre que le damos al servicio (solo para identificarlo).
 spec:
+  type: LoadBalancer # Tipo de servicio. con loadbalancer, el proveedor se encarga de darle una ip externa. minikube le asigna una para desarrollo local.
   selector:
-    app: feature-communicator
+    app: feature-communicator # Define qué pods serán seleccionados por este servicio.
   ports:
-    - protocol: TCP
-      port: 5001
-      targetPort: 5001
+    - protocol: TCP # Protocolo habilitado en el puerto.
+      port: 5001 # Es el puerto en el que el servicio estará disponible externamente.
+      targetPort: 5001 # Es el puerto en el que los pods seleccionados están escuchando.
+      nodePort: 30001 # Es el puerto expuesto del nodo en el que el servicio recibirá las solicitudes
+      name: "http" # Es el nombre del puerto.
 ---

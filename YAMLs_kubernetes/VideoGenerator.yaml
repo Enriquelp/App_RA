@@ -3,38 +3,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: video-generator
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
+spec: # Configuracion del deployment
+  replicas: 1 # Indica el número deseado de réplicas del conjunto de pods que el Deployment debe mantener en funcionamiento en todo momento.
+  selector: # Especifica cómo el Deployment encuentra qué pods administrar. 
+    matchLabels: # Define las etiquetas que deben coincidir con las etiquetas de los pods para que sean seleccionados por este Deployment. 
       app: video-generator
-  template:
+  template: # Define la plantilla para crear nuevos pods administrados por el Deployment.
     metadata:
-      labels:
+      labels: # Especifica las etiquetas que se asignarán a los pods creados por este Deployment.
         app: video-generator
     spec:
       containers:
-      - name: video-generator
-        image: enriquelpzenc/video_generator_http:latest
-        env:
+      - name: video-generator # Nombre del contenedor
+        image: enriquelpzenc/video_generator_http:latest # Imagen usada para el contenedor.
+        env: # Variables del servicio.
           - name: Feature_Communicator_ip
-            value: 0.0.0.0
+            value: "192.168.49.2"
           - name: Feature_Communicator_port
-            value: 5001
+            value: "30001"
           - name: Filter_Selector_ip
-            value: 0.0.0.0
+            value: "192.168.49.2"
           - name: Filter_Selector_port
-            value: 5000
+            value: "30000"
 ---
-# service.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: video-generator
-spec:
-  selector:
-    app: video-generator
-  ports:
-    - protocol: TCP
-      targetPort: 5000
+
 ---

@@ -3,41 +3,44 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: filter-selector
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
+spec: # Configuracion del deployment
+  replicas: 1 # Indica el número deseado de réplicas del conjunto de pods que el Deployment debe mantener en funcionamiento en todo momento.
+  selector: # Especifica cómo el Deployment encuentra qué pods administrar. 
+    matchLabels: # Define las etiquetas que deben coincidir con las etiquetas de los pods para que sean seleccionados por este Deployment. 
       app: filter-selector
-  template:
+  template: # Define la plantilla para crear nuevos pods administrados por el Deployment.
     metadata:
-      labels:
+      labels: # Especifica las etiquetas que se asignarán a los pods creados por este Deployment.
         app: filter-selector
     spec:
       containers:
-      - name: filter-selector
-        image: enriquelpzenc/filter_selector_http:latest
-        ports:
-        - containerPort: 5000
-        env:
+      - name: filter-selector # Nombre del contenedor
+        image: enriquelpzenc/filter_selector_http:latest # Imagen usada para el contenedor.
+        ports: # Define los puertos que el contenedor debe exponer.
+        - containerPort: 5000 # Especifica el puerto en el que el contenedor escuchará las conexiones entrantes.
+        env: # Variables del servicio.
           - name: own_host
-            value: 0.0.0.0
+            value: "0.0.0.0"
           - name: own_port
-            value: 5000
+            value: "5000"
           - name: Visualizer_ip
-            value: 0.0.0.0
+            value: "192.168.49.2"
           - name: Visualizer_port
-            value: 5003
+            value: "30003"
 ---
 # service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: filter-selector
+  name: filter-selector-service # Nombre que le damos al servicio (solo para identificarlo).
 spec:
+  type: LoadBalancer # Tipo de servicio. con loadbalancer, el proveedor se encarga de darle una ip externa. minikube le asigna una para desarrollo local.
   selector:
-    app: filter-selector
+    app: filter-selector # Define qué pods serán seleccionados por este servicio.
   ports:
-    - protocol: TCP
-      port: 5000
-      targetPort: 5000
+    - protocol: TCP # Protocolo habilitado en el puerto.
+      port: 5000 # Es el puerto en el que el servicio estará disponible externamente.
+      targetPort: 5000 # Es el puerto en el que los pods seleccionados están escuchando.
+      nodePort: 30000 # Es el puerto expuesto del nodo en el que el servicio recibirá las solicitudes
+      name: "http" # Es el nombre del puerto.
 ---
