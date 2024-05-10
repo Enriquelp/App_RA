@@ -8,7 +8,7 @@ Se han desarrollado dos versiones de la aplicación. La primera, mas simple y so
 
 ### Índice de contenidos
 
-![Diagrama de los microservicios](Documentos/Diagrama_microservicios.png)
+![Diagrama de los microservicios](Documentacion/Diagrama_microservicios.png)
 
 ---
 
@@ -138,4 +138,4 @@ docker run --name Visualizer --network my-network -p 5003:5003 enriquelpzenc/vis
 
 ---
 
-[Despliegue de la aplicación RA en Kubernetes](Documentacion/Despliegue_de_la_aplicación_en_Kubernetes.md.md)
+[Despliegue de la aplicación RA en Kubernetes](Documentacion/Despliegue_de_la_aplicación_en_Kubernetes.md)

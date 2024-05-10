@@ -4,7 +4,7 @@ Para realizar el despliegue de la aplicación de realidad virtual en Kubernetes,
 
 Hay que configurar la IP del nodo que nos proporciona normalmente el proveedor del clúster, pero minikube tiene la opción para darle una IP externa de uso local (consultar notas).
 
-![Esquema del despliegue en Kubernetes](Documentos/Despliegue_Kubernetes.png)
+![Esquema del despliegue en Kubernetes](Documentacion/Despliegue_Kubernetes.png)
 
 Esquema del despliegue en Kubernetes
 
