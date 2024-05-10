@@ -8,7 +8,7 @@ Se han desarrollado dos versiones de la aplicación. La primera, mas simple y so
 
 ### Índice de contenidos
 
-![Untitled](Diagrama_microservicios.png)
+![Diagrama de los microservicios](Documentos/Diagrama_microservicios.png)
 
 ---
 
