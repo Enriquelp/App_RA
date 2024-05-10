@@ -8,7 +8,7 @@ Se han desarrollado dos versiones de la aplicación. La primera, mas simple y so
 
 ### Índice de contenidos
 
-![Untitled](Aplicacio%CC%81n%20RA%20f49c69c2e3e649989a20df0c0a24f9fa/Untitled.png)
+![Untitled](Diagrama_microservicios.png)
 
 ---
 
@@ -134,8 +134,8 @@ docker run --name ArUcoTracker -e "Visualizer_ip=Visualizer" --network my-networ
 docker run --name Visualizer --network my-network -p 5003:5003 enriquelpzenc/visualizer_http
 ```
 
-[Dockerfiles](Aplicacio%CC%81n%20RA%20f49c69c2e3e649989a20df0c0a24f9fa/Dockerfiles%2013ef7fb795db4f448056bcdd680d4b6a.md)
+[Dockerfiles](Documentacion/Dockerfiles.md)
 
 ---
 
-[Despliegue de la aplicación RA en Kubernetes](Aplicacio%CC%81n%20RA%20f49c69c2e3e649989a20df0c0a24f9fa/Despliegue%20de%20la%20aplicacio%CC%81n%20RA%20en%20Kubernetes%208cc12a3e8da04e8a95179ecb2d12a135.md)
+[Despliegue de la aplicación RA en Kubernetes](Documentacion/Despliegue_de_la_aplicación_en_Kubernetes.md.md)
