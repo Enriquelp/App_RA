@@ -1,6 +1,6 @@
 # Despliegue de la aplicación RA en Kubernetes
 
-Para realizar el despliegue de la aplicación de realidad virtual en Kubernetes, vamos a usar una maquina con el S.O. Ubuntu 22.04, en el que instalaremos minikube como clúster simple de prueba y kubectl como interfaz de comandos de Kubernetes.
+Para realizar el despliegue de la aplicación de realidad virtual en Kubernetes, vamos a usar una maquina con el S.O. Ubuntu 22.04, en el que instalaremos minikube como clúster simple de prueba y kubectl como interfaz de comandos de Kubernetes. Si se desea desplegar en otro S.O. recomiendo seguir las instrucciones de la pagina oficial [aquí](https://minikube.sigs.k8s.io/docs/start/)
 
 Hay que configurar la IP del nodo que nos proporciona normalmente el proveedor del clúster, pero minikube tiene la opción para darle una IP externa de uso local (consultar notas).
 
@@ -89,7 +89,10 @@ minikube dashboard # abre una página web con informacon del cluster
 
 Para asignar IP externas a los deploys, se debe consultar la IP del clúster (nodo) donde están los pods. En caso de que sea con minikube, podemos ejecutar "kubectl get nodes", mirar el nodo donde están nuestros pods, y ejecutar "kubectl describe <nodo>". Ahí podemos buscar el valor dado al campo InternalIP.
 
+Otra forma mas sencilla de ver la IP es usando el comando "minikube ip"
+
 Para exponer un servicio públicamente -> minikube service <nombre-del-servicio>
+Si se quiere recibir la url en la que se puede abrir el servicio añadir al final del comando "--url"
 
 - Para ver el Visualizer en el navegador: [http://192.168.49.2:30003/visualizer](http://192.168.49.2:30003/visualizer) (la IP puede variar)
     

@@ -18,7 +18,7 @@ spec: # Configuracion del deployment
         volumeMounts:
           - mountPath: /dev/video0
             name: dev-video0
-        image: enriquelpzenc/video-capturer_http:latest
+        image: enriquelpzenc/video_capturer_http:latest
         env: # Variables del servicio.
           - name: Feature_Communicator_ip
             value: "192.168.49.2"
